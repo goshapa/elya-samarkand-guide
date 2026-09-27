@@ -39,6 +39,27 @@
   .navlink{font-size:14.5px;font-weight:600;letter-spacing:.01em;padding:8px 4px;border-bottom:2px solid transparent;}
   .navlink:hover{border-bottom-color:var(--gold);}
   ::selection{background:var(--gold);color:var(--ink);}
+
+  .nav-toggle{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;}
+  .nav-burger{display:none;}
+  .cta-mobile{display:none;}
+  @media (max-width:860px){
+    .cta-desktop{display:none;}
+    .nav-burger{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--cream-2);color:var(--cobalt-d);cursor:pointer;flex-shrink:0;}
+    .nav-burger svg{width:22px;height:22px;}
+    nav.mainnav{
+      display:none;
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:2px;
+      background:var(--paper);
+      padding:10px 28px 22px;
+      border-bottom:1px solid var(--line);
+      box-shadow:0 16px 28px rgba(43,22,15,0.12);
+    }
+    nav.mainnav .navlink{padding:14px 2px;border-bottom:1px solid var(--line);}
+    .nav-toggle:checked ~ nav.mainnav{display:flex;}
+    .cta-mobile{display:flex;justify-content:center;margin-top:14px;}
+  }
 </style>
 </head>
 <body>
@@ -47,7 +68,7 @@
 
   <!-- ============ HEADER ============ -->
   <header style="position:sticky;top:0;z-index:50;width:100%;background:rgba(251,241,222,0.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);">
-    <div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+    <div style="max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;">
       <a href="#top" style="display:flex;align-items:center;gap:12px;">
         <svg width="42" height="42" viewBox="0 0 64 64" aria-hidden="true">
           <circle cx="32" cy="32" r="31" fill="var(--cobalt)"></circle>
@@ -57,14 +78,23 @@
         </svg>
         <span style="font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:22px;color:var(--cobalt-d);">Элеонора</span>
       </a>
-      <nav style="display:flex;align-items:center;gap:26px;" aria-label="Основная навигация">
+
+      <input type="checkbox" id="navToggle" class="nav-toggle" aria-label="Открыть меню">
+
+      <nav class="mainnav" style="display:flex;align-items:center;gap:26px;" aria-label="Основная навигация">
         <a class="navlink" href="#about">Обо мне</a>
         <a class="navlink" href="#tours">Экскурсии</a>
         <a class="navlink" href="#reviews">Отзывы</a>
         <a class="navlink" href="#traditions">Традиции</a>
         <a class="navlink" href="#contact">Контакты</a>
+        <a class="btn btn-primary cta-mobile" href="https://t.me/elyauzguide" target="_blank" rel="noopener">Написать в Telegram</a>
       </nav>
-      <a class="btn btn-primary" style="padding:11px 22px;font-size:13.5px;" href="https://t.me/elyauzguide" target="_blank" rel="noopener">Написать в Telegram</a>
+
+      <a class="btn btn-primary cta-desktop" style="padding:11px 22px;font-size:13.5px;" href="https://t.me/elyauzguide" target="_blank" rel="noopener">Написать в Telegram</a>
+
+      <label for="navToggle" class="nav-burger" aria-label="Открыть меню">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+      </label>
     </div>
   </header>
 
