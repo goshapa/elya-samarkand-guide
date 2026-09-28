@@ -74,13 +74,27 @@
   .photo-strip{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);}
   .photo-strip-track{display:flex;align-items:center;gap:16px;width:max-content;animation:photo-strip-scroll 95s linear infinite;}
   .photo-strip:hover .photo-strip-track{animation-play-state:paused;}
-  .photo-strip-track img{height:230px;width:auto;border-radius:14px;display:block;flex-shrink:0;box-shadow:0 8px 20px rgba(43,22,15,0.18);}
+  .photo-strip-track img{height:230px;width:auto;border-radius:14px;display:block;flex-shrink:0;box-shadow:0 8px 20px rgba(43,22,15,0.18);cursor:pointer;transition:transform .2s ease;}
+  .photo-strip-track img:hover{transform:scale(1.03);}
   @keyframes photo-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   @media (max-width:640px){
     .photo-strip-track img{height:160px;}
   }
   @media (prefers-reduced-motion: reduce){
     .photo-strip-track{animation:none;overflow-x:auto;}
+  }
+
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(20,10,6,0.92);display:none;align-items:center;justify-content:center;padding:24px;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:86vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+  .lightbox-close,.lightbox-prev,.lightbox-next{position:absolute;background:rgba(251,241,222,0.14);border:1px solid rgba(251,241,222,0.3);color:var(--cream);border-radius:999px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;line-height:1;}
+  .lightbox-close{top:20px;right:20px;}
+  .lightbox-prev{left:16px;top:50%;transform:translateY(-50%);}
+  .lightbox-next{right:16px;top:50%;transform:translateY(-50%);}
+  .lightbox-close:hover,.lightbox-prev:hover,.lightbox-next:hover{background:rgba(251,241,222,0.28);}
+  @media (max-width:640px){
+    .lightbox-prev,.lightbox-next{width:38px;height:38px;font-size:18px;}
+    .lightbox-close{width:38px;height:38px;font-size:18px;top:12px;right:12px;}
   }
 </style>
 </head>
@@ -690,6 +704,72 @@
   </footer>
 
 </div>
+
+<div class="lightbox" id="photoLightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Закрыть">✕</button>
+  <button type="button" class="lightbox-prev" id="lightboxPrev" aria-label="Предыдущее фото">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <button type="button" class="lightbox-next" id="lightboxNext" aria-label="Следующее фото">›</button>
+</div>
+
+<script>
+(function(){
+  var track = document.querySelector('.photo-strip-track');
+  if (!track) return;
+
+  var imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
+  var srcs = [];
+  imgs.forEach(function(img){
+    var src = img.getAttribute('src');
+    if (srcs.indexOf(src) === -1) srcs.push(src);
+  });
+
+  var lightbox = document.getElementById('photoLightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var closeBtn = document.getElementById('lightboxClose');
+  var prevBtn = document.getElementById('lightboxPrev');
+  var nextBtn = document.getElementById('lightboxNext');
+  var current = 0;
+
+  function show(index){
+    current = (index + srcs.length) % srcs.length;
+    lightboxImg.src = srcs[current];
+  }
+
+  function open(index){
+    show(index);
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close(){
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  imgs.forEach(function(img){
+    img.addEventListener('click', function(){
+      open(srcs.indexOf(img.getAttribute('src')));
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', function(){ show(current - 1); });
+  nextBtn.addEventListener('click', function(){ show(current + 1); });
+
+  lightbox.addEventListener('click', function(e){
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+})();
+</script>
 
 <script>
 (function(){
