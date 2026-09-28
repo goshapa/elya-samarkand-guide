@@ -77,8 +77,20 @@
   .photo-strip-track img{height:230px;width:auto;border-radius:14px;display:block;flex-shrink:0;box-shadow:0 8px 20px rgba(43,22,15,0.18);cursor:pointer;transition:transform .2s ease;}
   .photo-strip-track img:hover{transform:scale(1.03);}
 
-  .cert-thumb{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:1px solid var(--line);cursor:pointer;display:block;transition:transform .2s ease,box-shadow .2s ease;background:var(--cream-2);}
-  .cert-thumb:hover{transform:scale(1.04);box-shadow:0 10px 22px rgba(43,22,15,0.18);}
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:34px 26px;padding:14px 10px 24px;}
+  .cert-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 12px 14px;box-shadow:0 10px 22px rgba(43,22,15,0.12);cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;position:relative;}
+  .cert-card:nth-child(odd){transform:rotate(-1.6deg);}
+  .cert-card:nth-child(even){transform:rotate(1.6deg);}
+  .cert-card:hover{transform:scale(1.06) rotate(0deg);box-shadow:0 20px 38px rgba(43,22,15,0.24);z-index:2;}
+  .cert-card.cert-featured{border-color:var(--gold);box-shadow:0 12px 26px rgba(227,166,43,0.35);}
+  .cert-card.cert-featured:hover{box-shadow:0 22px 42px rgba(227,166,43,0.4);}
+  .cert-thumb{width:100%;height:220px;object-fit:contain;display:block;border-radius:8px;background:#fff;}
+  .cert-label{margin-top:10px;font-size:11.5px;font-weight:700;letter-spacing:.03em;color:#8a6b4f;text-align:center;text-transform:uppercase;}
+  .cert-badge{position:absolute;top:-12px;right:-10px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;box-shadow:0 6px 14px rgba(0,0,0,0.2);transform:rotate(8deg);}
+  @media (max-width:640px){
+    .cert-grid{gap:26px 16px;}
+    .cert-thumb{height:170px;}
+  }
   @keyframes photo-strip-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   @media (max-width:640px){
     .photo-strip-track img{height:160px;}
@@ -297,18 +309,52 @@
         </p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;">
-        <img src="photos/certificates/cert-56.jpg" alt="TripAdvisor Travellers' Choice Awards 2025" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-46.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-47.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-48.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-49.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-50.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-51.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-52.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-53.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-54.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
-        <img src="photos/certificates/cert-55.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+      <div class="cert-grid">
+        <div class="cert-card cert-featured">
+          <span class="cert-badge">★ 2025</span>
+          <img src="photos/certificates/cert-56.jpg" alt="TripAdvisor Travellers' Choice Awards 2025" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="TripAdvisor Award 2025">Награда TripAdvisor 2025</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-46.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-47.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-48.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-49.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-50.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-51.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-52.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-53.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-54.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
+        <div class="cert-card">
+          <img src="photos/certificates/cert-55.jpg" alt="Сертификат гида" loading="lazy" class="cert-thumb">
+          <div class="cert-label" data-en="Guide Certificate">Сертификат гида</div>
+        </div>
       </div>
     </div>
   </section>
