@@ -50,6 +50,7 @@
   .lang-switch--light{background:rgba(255,255,255,0.18);}
   .lang-switch--light .lang-btn{color:var(--paper);}
   .lang-switch--light .lang-btn.active{background:var(--paper);color:var(--ink);}
+  .lang-switch.lang-switch-mobile{display:none;}
 
   @media (max-width:860px){
     .cta-desktop{display:none;}
@@ -67,6 +68,7 @@
     nav.mainnav .navlink{padding:14px 2px;border-bottom:1px solid var(--line);}
     .nav-toggle:checked ~ nav.mainnav{display:flex;}
     .cta-mobile{display:flex;justify-content:center;margin-top:14px;}
+    .lang-switch.lang-switch-mobile{display:inline-flex;justify-content:center;margin-top:10px;}
   }
 </style>
 </head>
@@ -96,7 +98,7 @@
         <a class="navlink" href="#reviews" data-en="Reviews">Отзывы</a>
         <a class="navlink" href="#traditions" data-en="Traditions">Традиции</a>
         <a class="navlink" href="#contact" data-en="Contact">Контакты</a>
-        <div class="lang-switch" style="margin-top:10px;" role="group" aria-label="Язык / Language">
+        <div class="lang-switch lang-switch-mobile" role="group" aria-label="Язык / Language">
           <button type="button" class="lang-btn" data-lang-btn="ru">RU</button>
           <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
         </div>
